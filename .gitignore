@@ -1,0 +1,11 @@
+*.ncb
+*.aps
+*.user
+*debug/
+*release/
+*.suo
+*.log
+*.old
+bin/
+.vs
+.vscode
