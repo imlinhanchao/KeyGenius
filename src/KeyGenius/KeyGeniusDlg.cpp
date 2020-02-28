@@ -86,12 +86,6 @@ BOOL CKeyGeniusDlg::OnInitDialog()
 	MinRun();
 	SetTimer(TIMER_LOADHOTKEY, 1000, NULL);
 
-	if (m_hThread == NULL)
-	{
-		m_bThread = true;
-		m_hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)(ThreadProc), (LPVOID)this, 0, NULL);
-	}
-
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -140,9 +134,11 @@ BOOL CKeyGeniusDlg::PreTranslateMessage(MSG* pMsg)
 		{  
 		case IDH_HOTKEY_NEXT:  
 			m_vkLoop = m_hotkey.vkKey1 == m_vkLoop ? m_hotkey.vkKey2 : m_hotkey.vkKey1;
+
 			return TRUE;  
 		case IDH_HOTKEY_PAUSE:  
 			m_bLoop = !m_bLoop;
+			if (m_bLoop) CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)(ThreadProc), (LPVOID)this, 0, NULL);
 			return TRUE;  
 		}  
 	}     
@@ -240,15 +236,15 @@ LRESULT CKeyGeniusDlg::OnShowTask(WPARAM wParam,LPARAM lParam)
 DWORD CKeyGeniusDlg::ThreadProc(LPVOID lpParameter)
 {
 	CKeyGeniusDlg* pMain = (CKeyGeniusDlg*)lpParameter;
-	while(pMain->m_bThread)
+	while(pMain->m_bLoop)
 	{
-		if (pMain->m_bLoop)
-		{
-			CString sTimeInterval;
-			pMain->m_pTime->GetWindowText(sTimeInterval);
-			GvKmSimulateHotKey(pMain->m_vkLoop, false, false, false);
-			Sleep(_ttol(sTimeInterval));
-		}
+		CString sTimeInterval;
+		pMain->m_pTime->GetWindowText(sTimeInterval);
+		GvKmSimulateHotKey(pMain->m_vkLoop & 0xff, 
+			pMain->GetModifiers(pMain->m_vkLoop) & MOD_ALT, 
+			pMain->GetModifiers(pMain->m_vkLoop) & MOD_SHIFT, 
+			pMain->GetModifiers(pMain->m_vkLoop) & MOD_CONTROL);
+		Sleep(_ttol(sTimeInterval));
 	}
 	return 0;
 }
@@ -308,7 +304,7 @@ void CKeyGeniusDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	if (TIMER_LOADHOTKEY == nIDEvent)
 	{
-		LoadHotKey();
+		if(IsWindowVisible()) LoadHotKey();
 	}
 
 	CDialog::OnTimer(nIDEvent);
