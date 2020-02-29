@@ -11,7 +11,7 @@
 
 ## 编译说明
 
-1. 本项目基于 Qt 5.9.9 开发，需[下载](http://download.qt.io/archive/qt/5.9/5.9.9/) Qt 开发环节；
+1. 本项目基于 Qt 5.9.9 开发，需[下载](http://download.qt.io/archive/qt/5.9/5.9.9/) Qt 开发环境；
 2. 系统 Hotkey 功能依赖于 [QHotkey](https://github.com/Skycoder42/QHotkey) 实现，使用 [qdep](https://github.com/Skycoder42/qdep) 管理依赖，请执行如下指令安装：
 ```bash
 pip install qdep
