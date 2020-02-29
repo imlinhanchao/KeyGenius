@@ -78,12 +78,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "Hancel"
-            VALUE "FileDescription", "小小按键精灵"
+            VALUE "FileDescription", "Tiny Keyboard Genius"
             VALUE "FileVersion", "1, 0, 4, 1"
             VALUE "InternalName", "KeyGenius.exe"
-            VALUE "LegalCopyright", "2020 (c) Hancel. All rights reserved."
+            VALUE "LegalCopyright", "Copyright (c) 2020 Hancel. All rights reserved."
             VALUE "OriginalFilename", "KeyGenius.exe"
-            VALUE "ProductName", "按键精灵"
+            VALUE "ProductName", "Key Genius"
             VALUE "ProductVersion", "1, 0, 4, 1"
         END
     END
