@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>KeyGenius.ico</file>
+    </qresource>
+</RCC>
