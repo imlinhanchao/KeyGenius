@@ -1,5 +1,4 @@
-#ifndef CROSS_H
-#define CROSS_H
+#pragma once
 #include <qglobal.h>
 
 #ifdef Q_OS_WIN
@@ -10,8 +9,6 @@
 
 #ifdef Q_OS_MAC
 
-
+#include "definition_mac.h"
 
 #endif
-
-#endif // CROSS_H

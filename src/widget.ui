@@ -76,7 +76,7 @@
     <item row="0" column="0">
      <widget class="QLabel" name="label__start">
       <property name="text">
-       <string>开始/停止：</string>
+       <string>  开始/停止：</string>
       </property>
       <property name="buddy">
        <cstring>keySequence_start</cstring>
@@ -126,7 +126,7 @@
     <item>
      <widget class="QLabel" name="label_interval">
       <property name="text">
-       <string>    间隔：</string>
+       <string>        间隔：</string>
       </property>
       <property name="buddy">
        <cstring>spinBox_interval</cstring>

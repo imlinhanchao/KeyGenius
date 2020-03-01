@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/icon">
         <file>KeyGenius.ico</file>
+        <file>KeyGenius.icns</file>
     </qresource>
 </RCC>

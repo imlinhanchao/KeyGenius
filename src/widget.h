@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QSystemTrayIcon>
 #include <QMenu>
+#include <QCloseEvent>
 
 #include "inc/config.h"
 #include "KeyThread.h"
@@ -25,7 +26,6 @@ public:
     void InitHotkey(void);
 
 private slots:
-    void on_Widget_destroyed();
     void on_spinBox_interval_valueChanged(int arg1);
     void on_keySequence_switch_keySequenceChanged(const QKeySequence &keySequence);
     void on_keySequence_start_keySequenceChanged(const QKeySequence &keySequence);
@@ -34,6 +34,7 @@ private slots:
     void iconActivated(QSystemTrayIcon::ActivationReason reason);
 
     void changeEvent(QEvent *e);
+    void closeEvent(QCloseEvent *event);
 
 private:
     struct menus { public: enum { Setting=0, Quit, Qty }; };

@@ -22,6 +22,7 @@ void KeyThread::run()
     {
         qDebug() << "Hotkey Activated" << (m_bKey1 ? "key1" : "key2");
         m_config.press(m_bKey1 ? HOTKEY_CFG::key1 : HOTKEY_CFG::key2);
-        Sleep(m_config.nTimeInterval);
+        int Times = m_config.nTimeInterval;
+        while(Times--) Sleep(1);
     }
 }

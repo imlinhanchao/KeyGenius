@@ -1,13 +1,30 @@
 #pragma once
 #include <qglobal.h>
-#ifdef Q_OS_WIN
+
+#ifdef Q_OS_MAC
+
+#define ICON_RES ":/icon/KeyGenius.icns"
+
+#ifdef __cplusplus
+
 #include <QSettings>
 #include <QKeySequence>
 
-#include <windows.h>
-#include <commctrl.h>
+extern "C" {
+#endif
 
-#define ICON_RES ":/icon/KeyGenius.ico"
+#include <Carbon/Carbon.h>
+#include <ApplicationServices/ApplicationServices.h>
+
+unsigned int Sleep(unsigned int m);
+void KeybdEvent(CGKeyCode key, bool bkeydown);
+
+#ifdef __cplusplus
+
+}
+
+CGKeyCode toCGKeyCode(Qt::Key k);
+
 
 typedef struct _HOTKEY_CFG
 {
@@ -22,7 +39,7 @@ typedef struct _HOTKEY_CFG
 
     _HOTKEY_CFG()
     {
-        vkNext = Qt::Key_C + Qt::ALT;
+        vkNext = Qt::Key_F1 + Qt::ALT;
         vkStop = Qt::Key_F2 + Qt::CTRL;
         vkKey1 = Qt::Key_S + Qt::CTRL;
         vkKey2 = Qt::Key_F7;
@@ -48,31 +65,39 @@ typedef struct _HOTKEY_CFG
     {
         int* pKeys[] = { &vkNext, &vkStop, &vkKey1, &vkKey2 };
 
-        BYTE vk; bool bAlt, bShift, bCtrl;
+        CGKeyCode vk; bool bAlt, bShift, bCtrl, bCommand;
 
-        vk = *pKeys[key] & 0xff;
+        vk = toCGKeyCode((Qt::Key)(*pKeys[key] & 0xff));
         bAlt = *pKeys[key] & Qt::ALT;
         bShift = *pKeys[key] & Qt::SHIFT;
-        bCtrl = *pKeys[key] & Qt::CTRL;
+        bCtrl = *pKeys[key] & Qt::MetaModifier;
+        bCommand = *pKeys[key] & Qt::CTRL;
 
         if(0 == vk)
         {
             return false;
         }
 
-        if(bAlt)   { keybd_event(VK_MENU,    MapVirtualKey(VK_MENU,    0), 0, 0); }
-        if(bShift) { keybd_event(VK_SHIFT,   MapVirtualKey(VK_SHIFT,   0), 0, 0); }
-        if(bCtrl)  { keybd_event(VK_CONTROL, MapVirtualKey(VK_CONTROL, 0), 0, 0); }
+        if(bAlt)      { KeybdEvent(kVK_Option,  true); }
+        if(bShift)    { KeybdEvent(kVK_Shift,   true); }
+        if(bCtrl)     { KeybdEvent(kVK_Control, true); }
+        if(bCommand)  { KeybdEvent(kVK_Command, true); }
 
-        keybd_event(vk, MapVirtualKey(vk, 0), 0, 0);
         Sleep(100);
-        keybd_event(vk, MapVirtualKey(vk, 0), KEYEVENTF_KEYUP, 0);
+        KeybdEvent(vk, true);
+        Sleep(100);
+        KeybdEvent(vk, false);
+        Sleep(100);
 
-        if(bAlt)   { keybd_event(VK_MENU,    MapVirtualKey(VK_MENU,    0), KEYEVENTF_KEYUP, 0); }
-        if(bShift) { keybd_event(VK_SHIFT,   MapVirtualKey(VK_SHIFT,   0), KEYEVENTF_KEYUP, 0); }
-        if(bCtrl)  { keybd_event(VK_CONTROL, MapVirtualKey(VK_CONTROL, 0), KEYEVENTF_KEYUP, 0); }
+        if(bAlt)      { KeybdEvent(kVK_Option,  false); }
+        if(bShift)    { KeybdEvent(kVK_Shift,   false); }
+        if(bCtrl)     { KeybdEvent(kVK_Control, false); }
+        if(bCommand)  { KeybdEvent(kVK_Command, false); }
 
         return true;
     }
 }HOTKEY_CFG, *PHOTKEY_CFG;
+
+#endif
+
 #endif

@@ -7,7 +7,7 @@ Widget::Widget(QWidget *parent)
 {
     m_ui->setupUi(this);
     InitUi();
-    //InitHotkey();
+    InitHotkey();
 }
 
 Widget::~Widget()
@@ -26,7 +26,7 @@ void Widget::InitUi()
     m_ui->keySequence_key2->setKeySequence(m_config.toKey(HOTKEY_CFG::key2));
     m_ui->spinBox_interval->setValue(m_config.nTimeInterval);
 
-    QIcon icon = QIcon(":/icon/KeyGenius.ico");
+    QIcon icon = QIcon(ICON_RES);
     m_trayIcon = new QSystemTrayIcon(this);
     m_trayIcon->setIcon(icon);
     m_trayIcon->setToolTip("小小按键精灵");
@@ -70,10 +70,6 @@ void Widget::InitHotkey()
     });
 }
 
-void Widget::on_Widget_destroyed()
-{
-    m_t.quit();
-}
 
 void Widget::on_spinBox_interval_valueChanged(int arg1)
 {
@@ -135,5 +131,13 @@ void Widget::changeEvent(QEvent *e)
         e->ignore();
         hide();
     }
+}
+
+void Widget::closeEvent(QCloseEvent *event)
+{
+    m_t.stop();
+    m_t.quit();
+    m_t.wait();
+    event->accept();
 }
 

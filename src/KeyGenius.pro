@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     KeyThread.cpp \
     inc/config.cpp \
+    inc/cross/definition_mac.cpp \
     main.cpp \
     widget.cpp
 
@@ -25,15 +26,24 @@ HEADERS += \
     KeyThread.h \
     inc/config.h \
     inc/cross/cross.h \
+    inc/cross/definition_mac.h \
     inc/cross/definition_win.h \
     widget.h
+
+LIBS += -framework ApplicationServices
 
 FORMS += \
     widget.ui
 
-DISTFILES += "res/KeyGenius.rc"
+
+DISTFILES += "res/KeyGenius.rc" \
+    res/Info.plist
 RC_ICONS += "res/KeyGenius.ico"
 RC_FILE += "res/KeyGenius.rc"
+
+# Mac Config
+ICON = "res/KeyGenius.icns"
+QMAKE_INFO_PLIST = "res/Info.plist"
 
 QDEP_DEPENDS += Skycoder42/QHotkey
 !load(qdep):error("Failed to load qdep feature")
