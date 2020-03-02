@@ -1,5 +1,6 @@
 #include "definition_mac.h"
 
+#ifdef Q_OS_MAC
 CGKeyCode toCGKeyCode(Qt::Key k){
     switch(k){
         case Qt::Key_0:
@@ -135,3 +136,4 @@ void KeybdEvent(CGKeyCode key, bool bkeydown)
     CGEventPost(kCGHIDEventTap, mkey);
     CFRelease(mkey);
 }
+#endif

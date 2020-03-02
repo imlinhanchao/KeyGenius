@@ -30,14 +30,14 @@ HEADERS += \
     inc/cross/definition_win.h \
     widget.h
 
-LIBS += -framework ApplicationServices
+mac:LIBS += -framework ApplicationServices
 
 FORMS += \
     widget.ui
 
-
-DISTFILES += "res/KeyGenius.rc" \
+DISTFILES = res/KeyGenius.rc \
     res/Info.plist
+
 RC_ICONS += "res/KeyGenius.ico"
 RC_FILE += "res/KeyGenius.rc"
 
