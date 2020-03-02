@@ -5,23 +5,15 @@
 
 #define ICON_RES ":/icon/KeyGenius.icns"
 
-#ifdef __cplusplus
 
 #include <QSettings>
 #include <QKeySequence>
-
-extern "C" {
-#endif
-
 #include <Carbon/Carbon.h>
 #include <ApplicationServices/ApplicationServices.h>
 
 unsigned int Sleep(unsigned int m);
 void KeybdEvent(CGKeyCode key, bool bkeydown);
 
-#ifdef __cplusplus
-
-}
 
 CGKeyCode toCGKeyCode(Qt::Key k);
 
@@ -39,8 +31,8 @@ typedef struct _HOTKEY_CFG
 
     _HOTKEY_CFG()
     {
-        vkNext = Qt::Key_F1 + Qt::ALT;
-        vkStop = Qt::Key_F2 + Qt::CTRL;
+        vkNext = Qt::Key_N + Qt::ALT;
+        vkStop = Qt::Key_S+ Qt::ALT;
         vkKey1 = Qt::Key_S + Qt::CTRL;
         vkKey2 = Qt::Key_F7;
         nTimeInterval = 5000;
@@ -97,7 +89,5 @@ typedef struct _HOTKEY_CFG
         return true;
     }
 }HOTKEY_CFG, *PHOTKEY_CFG;
-
-#endif
 
 #endif

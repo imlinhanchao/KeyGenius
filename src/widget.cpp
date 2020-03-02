@@ -19,12 +19,15 @@ void Widget::InitUi()
 {
     m_ui->spinBox_interval->setSingleStep(1000);
     m_ui->spinBox_interval->setMaximum(2000000000);
+
     m_config = Config::GetConfig();
+
     m_ui->keySequence_switch->setKeySequence(m_config.toKey(HOTKEY_CFG::next));
     m_ui->keySequence_start->setKeySequence(m_config.toKey(HOTKEY_CFG::stop));
     m_ui->keySequence_key1->setKeySequence(m_config.toKey(HOTKEY_CFG::key1));
     m_ui->keySequence_key2->setKeySequence(m_config.toKey(HOTKEY_CFG::key2));
     m_ui->spinBox_interval->setValue(m_config.nTimeInterval);
+
 
     QIcon icon = QIcon(ICON_RES);
     m_trayIcon = new QSystemTrayIcon(this);
@@ -129,7 +132,12 @@ void Widget::changeEvent(QEvent *e)
     if((e->type() == QEvent::WindowStateChange) && isMinimized())
     {
         e->ignore();
+#ifdef Q_OS_MAC
+        ObjectiveC *obc = new ObjectiveC();
+        obc->HideWindow();
+#else
         hide();
+#endif
     }
 }
 

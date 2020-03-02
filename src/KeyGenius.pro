@@ -30,7 +30,13 @@ HEADERS += \
     inc/cross/definition_win.h \
     widget.h
 
-mac:LIBS += -framework ApplicationServices
+macx {
+    LIBS += -framework Foundation
+    LIBS += -framework AppKit
+
+    OBJECTIVE_SOURCES += inc/cross/objectivec.mm
+    HEADERS +=  inc/cross/objectivec.h
+}
 
 FORMS += \
     widget.ui

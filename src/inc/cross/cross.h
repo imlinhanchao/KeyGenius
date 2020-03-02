@@ -10,5 +10,6 @@
 #ifdef Q_OS_MAC
 
 #include "definition_mac.h"
+#include "objectivec.h"
 
 #endif
