@@ -51,6 +51,8 @@ RC_FILE += "res/KeyGenius.rc"
 ICON = "res/KeyGenius.icns"
 QMAKE_INFO_PLIST = "res/Info.plist"
 
+QMAKE_LFLAGS += -static
+
 QDEP_DEPENDS += Skycoder42/QHotkey
 !load(qdep):error("Failed to load qdep feature")
 

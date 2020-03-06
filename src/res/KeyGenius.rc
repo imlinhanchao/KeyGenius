@@ -61,8 +61,8 @@ IDI_ICON1           ICON        DISCARDABLE "KeyGenius.ico"  # add icon to left 
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,4,1
- PRODUCTVERSION 1,0,4,1
+ FILEVERSION 1,0,6,1
+ PRODUCTVERSION 1,0,6,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -79,12 +79,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Hancel"
             VALUE "FileDescription", "Tiny Keyboard Genius"
-            VALUE "FileVersion", "1, 0, 4, 1"
+            VALUE "FileVersion", "1, 0, 6, 1"
             VALUE "InternalName", "KeyGenius.exe"
             VALUE "LegalCopyright", "Copyright (c) 2020 Hancel. All rights reserved."
             VALUE "OriginalFilename", "KeyGenius.exe"
             VALUE "ProductName", "Key Genius"
-            VALUE "ProductVersion", "1, 0, 4, 1"
+            VALUE "ProductVersion", "1, 0, 6, 1"
         END
     END
     BLOCK "VarFileInfo"
